@@ -1,80 +1,70 @@
-# Hello World! in Solidity
+# Smart Contract Project
 
+## Overview
 
-## Install
+This repository contains a smart contract project implemented using Solidity. The project demonstrates the use of `require()`, `assert()`, and `revert()` statements to enhance contract security and functionality.
 
-1. Install [Node.js](https://nodejs.org)
+### Functionality
 
-   Download and install from the official site.
+The smart contract (`SmartContract.sol`) implements the following functionalities:
 
-2. Install [Truffle](https://github.com/trufflesuite/truffle)
+- **require()**: Ensures conditions are met before executing transactions or functions.
+- **assert()**: Validates internal conditions and halts execution if conditions are false.
+- **revert()**: Reverts state changes and throws an exception if conditions are not met.
+
+### Explanation
+
+The project aims to showcase how these statements enhance the reliability and security of smart contracts by enforcing conditions and handling unexpected behaviors gracefully.
+
+## Files
+
+- `contracts/SmartContract.sol`: Contains the main smart contract code with `require()`, `assert()`, and `revert()` statements.
+- `migrations/2_deploy_contracts.js`: Truffle migration script for deploying the smart contract.
+
+## Installation
+
+To run this project locally or in a development environment:
+
+1. **Clone the repository:**
 
    ```bash
-   npm install -g truffle
-   ```
-
-
-## Initialize
-
-1. Initialize Truffle in your project folder
-
-   ```bash
-   truffle init
-   ```
-
-   After initialization, you will find two folders called `contracts` and `migrations`. Contracts go in the `contracts` folder while contract deployment settings go in `migrations`.
-
-2. The "Hello World!" contract
-
-   This is an example of a "Hello World!" contract in Solidity. 
-   "HelloWorld.sol" in `contracts` contains the following code:
-
-   ```solidity
-   // SPDX-License-Identifier: MIT
-   // compiler version must be greater than or equal to 0.8.17 and less than 0.9.0
-   pragma solidity ^0.8.17;
+   git clone https://github.com/your-username/SmartContract.git
+   cd SmartContract
    
-   contract HelloWorld {
-       string public greet = "Hello World!";
-   }   
-   ```
+2. **Install dependencies (Truffle):**
+npm install -g truffle
+npm install
 
-3. Prepare the migration
-
-   "2_deploy_migration.js" in `migrations` contains the following code:
-
-   ```javascript
-   var HelloWorld = artifacts.require("HelloWorld");
-   module.exports = function(deployer) {
-     deployer.deploy(HelloWorld);
-   }
-   ```
-
-4. Start Truffle console in development mode
-
-   ```bash
-   truffle develop
-   ```
-
-   In the Truffle console, execute
-
-   ```bash
-   compile
+## Usage
+1. **Compile the smart contracts:**
+   truffle compile
+2. **truffle migrate**
    migrate
-   ```
-   If you want to remigrate existing contracts, run `migrate --reset` instead of simply `migrate`.
+3. **Test**
+```bash
+// Get the deployed instance of the contract
+let smartInstance = await SmartContract.deployed();
 
-5. Test your contract
+// Set the number using setNumber
+await smartInstance.setNumber(10);
 
-   In the interactive Truffle console, run the following commands:
+// Retrieve the value of myNumber
+let number = await smartInstance.myNumber();
+console.log(number.toString()); // Outputs: 10
 
-   ```javascript
-   let instance = await HelloWorld.deployed()
-   instance.greet()
-   ```
+// Call assertExample
+let assertResult = await smartInstance.assertExample(10);
+console.log(assertResult); // Outputs: true
 
-   Then you will see:
+// Try to call revertExample with 0 (this will throw an error)
+try {
+    await smartInstance.revertExample(0);
+} catch (error) {
+    console.error(error.message); // Outputs: "Number cannot be zero"
+}
+```
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-   ```bash
-   'Hello World!'
-   ```
+## Contact
+For questions or feedback, please contact eidmuli@mymail.mapua.edu.ph
